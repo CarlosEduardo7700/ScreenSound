@@ -23,4 +23,9 @@ public class Artista {
     private TiposArtistas tipos;
     @OneToMany(mappedBy = "artista")
     private List<Musica> musicas = new ArrayList<>();
+
+    public Artista(String nome, TiposArtistas tipos) {
+        this.nome = nome;
+        this.tipos = tipos;
+    }
 }
