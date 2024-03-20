@@ -1,6 +1,7 @@
 package br.com.alura.screensound.componentes;
 
 import br.com.alura.screensound.models.Artista;
+import br.com.alura.screensound.models.Musica;
 import br.com.alura.screensound.models.TiposArtistas;
 import br.com.alura.screensound.repositories.ArtistaRepository;
 
@@ -43,7 +44,7 @@ public class MenuPrincipal {
                      cadastrarArtista();
                      break;
                  case 2:
-                     System.out.println("Cadastrando música...");
+                     cadastrarMusica();
                      break;
                  case 3:
                      System.out.println("Listando músicas...");
@@ -63,6 +64,30 @@ public class MenuPrincipal {
          }
     }
 
+    private void cadastrarMusica() {
+        System.out.println("Informe o nome do artista para cadastrar sua música:");
+        var nomeArtista = scan.nextLine();
+        var artista = artistaRepository.findByNomeContainingIgnoreCase(nomeArtista);
+
+        if (artista.isPresent()) {
+            System.out.println("\nInforme o nome da música: ");
+            var nome = scan.nextLine();
+
+            System.out.println("\nInforme o nome do álbum");
+            var album = scan.nextLine();
+
+            Musica musica = new Musica(nome, album);
+            musica.setArtista(artista.get());
+
+            artista.get().getMusicas().add(musica);
+            artistaRepository.save(artista.get());
+
+            System.out.println("\nMúsica cadastrada!");
+        } else {
+            System.out.println("Artista não encontrado!");
+        }
+    }
+
     private void cadastrarArtista() {
 
         var continuar = "S";
@@ -70,12 +95,15 @@ public class MenuPrincipal {
         while (continuar.equalsIgnoreCase("S")) {
             System.out.println("\nInforme o nome do artista: ");
             var nome = scan.nextLine();
+
             System.out.println("\nInforme o tipo do artista (solo, dupla ou banda)");
             var tipoEmString = scan.nextLine();
             TiposArtistas tipo = TiposArtistas.fromString(tipoEmString);
+
             Artista artista = new Artista(nome, tipo);
+
             artistaRepository.save(artista);
-            System.out.println("\nArtista cadastrado! Deseja cadastrar outor artista (S/N)?");
+            System.out.println("\nArtista cadastrado! Deseja cadastrar outro artista (S/N)?");
             continuar = scan.nextLine();
         }
     }

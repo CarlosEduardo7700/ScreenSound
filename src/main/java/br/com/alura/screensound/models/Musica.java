@@ -18,4 +18,9 @@ public class Musica {
     private String album;
     @ManyToOne
     private Artista artista;
+
+    public Musica(String nome, String album) {
+        this.nome = nome;
+        this.album = album;
+    }
 }
