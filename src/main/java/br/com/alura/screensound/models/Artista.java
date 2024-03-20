@@ -28,4 +28,14 @@ public class Artista {
         this.nome = nome;
         this.tipos = tipos;
     }
+
+    @Override
+    public String toString() {
+        return "Artista{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", tipos=" + tipos +
+                ", musicas=" + musicas +
+                '}';
+    }
 }

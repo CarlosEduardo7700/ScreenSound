@@ -5,6 +5,7 @@ import br.com.alura.screensound.models.Musica;
 import br.com.alura.screensound.models.TiposArtistas;
 import br.com.alura.screensound.repositories.ArtistaRepository;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class MenuPrincipal {
@@ -47,13 +48,13 @@ public class MenuPrincipal {
                      cadastrarMusica();
                      break;
                  case 3:
-                     System.out.println("Listando músicas...");
+                     listarMusicas();
                      break;
                  case 4:
-                     System.out.println("Buscando músicas...");
+                     buscarMusicaPeloArtista();
                      break;
                  case 5:
-                     System.out.println("Pesquisando dados...");
+                     perquisarDadosDoArtista();
                      break;
                  case 0:
                      System.out.println("Saindo...");
@@ -62,6 +63,26 @@ public class MenuPrincipal {
                      System.out.println("Opção inválida! Tente novamente.");
              }
          }
+    }
+
+    private void perquisarDadosDoArtista() {
+        System.out.println("Informe o nome do artista:");
+        var nome = scan.nextLine();
+        var artista = artistaRepository.findByNomeContainingIgnoreCase(nome);
+        System.out.println(artista);
+    }
+
+    private void buscarMusicaPeloArtista() {
+        System.out.println("Informe o nome do artista:");
+        var nomeDoArtista = scan.nextLine();
+        List<Musica> musicas = artistaRepository.buscarMusicasPorArtista(nomeDoArtista);
+        musicas.forEach(System.out::println);
+    }
+
+
+    private void listarMusicas() {
+        List<Artista> artistas = artistaRepository.findAll();
+        artistas.forEach(a -> a.getMusicas().forEach(System.out::println));
     }
 
     private void cadastrarMusica() {

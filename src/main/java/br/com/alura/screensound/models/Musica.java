@@ -23,4 +23,14 @@ public class Musica {
         this.nome = nome;
         this.album = album;
     }
+
+    @Override
+    public String toString() {
+        return "Musica{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", album='" + album + '\'' +
+                ", artista=" + artista +
+                '}';
+    }
 }
