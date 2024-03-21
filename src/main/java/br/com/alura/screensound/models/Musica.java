@@ -30,7 +30,7 @@ public class Musica {
                 "id=" + id +
                 ", nome='" + nome + '\'' +
                 ", album='" + album + '\'' +
-                ", artista=" + artista +
+                ", artista=" + artista.getNome() +
                 '}';
     }
 }
